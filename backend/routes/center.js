@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 // GET all center
-router.get('/', (req, res) => {
+  router.get('/', (req, res) => {
     res.json({mssg: 'GET all centers'})
   })
   
@@ -22,6 +22,11 @@ router.get('/', (req, res) => {
     res.json({mssg: 'DELETE a center'})
   })
   
+  // UPDATE a center
+  router.put('/:id', (req, res) => {
+    res.json({mssg: 'UPDATE a center'})
+})
+
   // UPDATE a center
   router.patch('/:id', (req, res) => {
     res.json({mssg: 'UPDATE a center'})
