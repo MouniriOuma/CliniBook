@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const timeSlotSchema = new Schema({
-  healthcareCenter: {
+  center: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'center',
     required: true
@@ -20,10 +20,9 @@ const timeSlotSchema = new Schema({
     type: String,
     required: true
   },
-  capacity: {
-    type: Number,
-    required: true,
-    min: 1
+  availability: {
+    type: Boolean,
+    default: false
   },
   reservedBy: {
     type: mongoose.Schema.Types.ObjectId,

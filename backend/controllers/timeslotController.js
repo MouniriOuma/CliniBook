@@ -32,10 +32,10 @@ const getTimeSlot = async (req, res) => {
 
 // Create a new time slot
 const createTimeSlot = async (req, res) => {
-    const { healthcareCenter, date, startTime, endTime, capacity, reservedBy } = req.body;
+    const { center, date, startTime, endTime, availability, reservedBy } = req.body;
   
     try {
-      const timeSlot = await TimeSlot.create({ healthcareCenter, date, startTime, endTime, capacity, reservedBy });
+      const timeSlot = await TimeSlot.create({ center, date, startTime, endTime, availability, reservedBy });
       res.status(201).json(timeSlot);
     } catch (error) {
       res.status(400).json({ error: error.message });

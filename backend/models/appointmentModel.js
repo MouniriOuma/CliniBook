@@ -8,7 +8,7 @@ const appointmentSchema = new Schema({
     ref: 'user',
     required: true,
   },
-  timeslot: {
+  timeSlot: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'timeSlot',
     required: true,
