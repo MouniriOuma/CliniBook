@@ -8,7 +8,12 @@ const {
     updateTimeSlot
 } = require('../controllers/timeslotController')
 
+const requireAuth = require('../middleware/requireAuth')
+
 const router = express.Router()
+
+// require auth for all Appointment routes
+router.use(requireAuth)
 
 // GET all Timeslots
 router.get('/', getTimeSlots)

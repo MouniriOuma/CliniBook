@@ -1,9 +1,9 @@
 const User = require('../models/userModel');
-// const jwt = require('jsonwebtoken');
+ const jwt = require('jsonwebtoken');
 
-// const createToken = (_id) => {
-//   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
-// };
+ const createToken = (_id) => {
+   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+ };
 
 // Login a user
 const loginUser = async (req, res) => {
@@ -13,9 +13,9 @@ const loginUser = async (req, res) => {
     const user = await User.login(email, password);
 
     // Create a token
-//    const token = createToken(user._id);
+    const token = createToken(user._id);
 
-//    res.status(200).json({ email: user.email, token });
+    res.status(200).json({ email: user.email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -23,18 +23,18 @@ const loginUser = async (req, res) => {
 
 // Signup a user
 const signupUser = async (req, res) => {
-//   const { email, password } = req.body;
+   const { name, lastName, email, password, phone } = req.body;
 
-//   try {
-//     const user = await User.signup(email, password);
+   try {
+     const user = await User.signup(name, lastName, email, password, phone);
 
-//     // Create a token
-//     const token = createToken(user._id);
+     // Create a token
+     const token = createToken(user._id);
 
-//     res.status(200).json({ email: user.email, token });
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
+     res.status(200).json({ email: user.email, token });
+   } catch (error) {
+     res.status(400).json({ error: error.message });
+   }
 };
 
 // Change user role by admin

@@ -8,7 +8,12 @@ const {
   updateCenter,
 } = require('../controllers/centerController')
 
+const requireAuth = require('../middleware/requireAuth')
+
 const router = express.Router()
+
+// require auth for all Appointment routes
+router.use(requireAuth)
 
 // GET all Centers
 router.get('/', getCenters)

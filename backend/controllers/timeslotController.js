@@ -33,8 +33,33 @@ const getTimeSlot = async (req, res) => {
 // Create a new time slot
 const createTimeSlot = async (req, res) => {
     const { center, date, startTime, endTime, availability, reservedBy } = req.body;
-  
+
+    //check for empty fields
+    let emptyFields = []
+
+    if (!center) {
+      emptyFields.push('center')
+    }
+    if (!date) {
+      emptyFields.push('date')
+    }
+    if (!startTime) {
+      emptyFields.push('startTime')
+    }
+    if (!endTime) {
+      emptyFields.push('endTime')
+    }
+    if (!availability) {
+      emptyFields.push('availability')
+    }    
+    if (emptyFields.length > 0) {
+      return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
+    }
+    
+    
+    //add to DB
     try {
+      const reservedBy = req.user._id
       const timeSlot = await TimeSlot.create({ center, date, startTime, endTime, availability, reservedBy });
       res.status(201).json(timeSlot);
     } catch (error) {

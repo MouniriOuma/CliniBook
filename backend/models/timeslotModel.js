@@ -22,7 +22,7 @@ const timeSlotSchema = new Schema({
   },
   availability: {
     type: Boolean,
-    default: false
+    default: true
   },
   reservedBy: {
     type: mongoose.Schema.Types.ObjectId,
