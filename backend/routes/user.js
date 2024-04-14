@@ -1,6 +1,6 @@
 const express = require('express')
 
-const {requireAuth, authorizeRoles} = require('../middleware');
+const requireAuth = require('../middleware/requireAuth');
 
 // controller functions
 const { loginUser, signupUser, changeUserRole  } = require('../controllers/userController')
@@ -14,6 +14,7 @@ router.post('/login', loginUser)
 router.post('/signup', signupUser)
 
 // Route to change user role by admin
-router.put('/changeUserRole/:id', requireAuth, authorizeRoles('admin'), changeUserRole);
+//router.put('/changeUserRole/:id', requireAuth, authorizeRoles('admin'), changeUserRole);
+router.put('/changeUserRole/:id', requireAuth, changeUserRole);
 
 module.exports = router

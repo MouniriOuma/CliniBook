@@ -12,11 +12,7 @@ const timeSlotSchema = new Schema({
     type: Date,
     required: true
   },
-  startTime: {
-    type: String,
-    required: true
-  },
-  endTime: {
+  time: {
     type: String,
     required: true
   },

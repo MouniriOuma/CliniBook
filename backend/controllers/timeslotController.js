@@ -32,7 +32,7 @@ const getTimeSlot = async (req, res) => {
 
 // Create a new time slot
 const createTimeSlot = async (req, res) => {
-    const { center, date, startTime, endTime, availability, reservedBy } = req.body;
+    const { center, date, time, availability, reservedBy } = req.body;
 
     //check for empty fields
     let emptyFields = []
@@ -43,11 +43,8 @@ const createTimeSlot = async (req, res) => {
     if (!date) {
       emptyFields.push('date')
     }
-    if (!startTime) {
+    if (!time) {
       emptyFields.push('startTime')
-    }
-    if (!endTime) {
-      emptyFields.push('endTime')
     }
     if (!availability) {
       emptyFields.push('availability')
@@ -60,7 +57,9 @@ const createTimeSlot = async (req, res) => {
     //add to DB
     try {
       const reservedBy = req.user._id
-      const timeSlot = await TimeSlot.create({ center, date, startTime, endTime, availability, reservedBy });
+
+      const timeSlot = await TimeSlot.create({ center, date, time, availability, reservedBy });
+
       res.status(201).json(timeSlot);
     } catch (error) {
       res.status(400).json({ error: error.message });

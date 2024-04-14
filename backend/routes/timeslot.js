@@ -8,7 +8,7 @@ const {
     updateTimeSlot
 } = require('../controllers/timeslotController')
 
-const requireAuth = require('../middleware/requireAuth')
+const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router()
 

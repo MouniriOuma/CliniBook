@@ -14,8 +14,9 @@ const appointmentSchema = new Schema({
     required: true,
   },
   validated: {
-    type: Boolean,
-    default: false,
+    type: String,
+    enum: ['valide', 'pending', 'unvalide'],
+    default: 'pending',
   },
   confirmedBy: {
     type: mongoose.Schema.Types.ObjectId,

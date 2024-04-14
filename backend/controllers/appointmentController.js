@@ -30,9 +30,24 @@ const getAppointment = async (req, res) => {
   }
 };
 
+//Get user's appointments
+const getUserAppointments = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const userAppointments = await Appointment.find({ user: userId });
+
+    // Return the user's appointments to the client
+    res.status(200).json(userAppointments);
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 // Create a new appointment
 const createAppointment = async (req, res) => {
-  const { user, timeSlot, validated, confirmedBy } = req.body;
+  //const { user, timeSlot, validated } = req.body;
 
   //check for empty fields
   let emptyFields = []
@@ -52,7 +67,7 @@ const createAppointment = async (req, res) => {
   }
   
   try {
-    const confirmedBy = req.user._id
+    let confirmedBy = req.user._id || '6619c535b5947cc831568a35'
     const appointment = await Appointment.create({ user, timeSlot, validated, confirmedBy });
     res.status(201).json(appointment);
   } catch (error) {
@@ -101,6 +116,7 @@ const updateAppointment = async (req, res) => {
 module.exports = {
   getAppointments,
   getAppointment,
+  getUserAppointments,
   createAppointment,
   deleteAppointment,
   updateAppointment
