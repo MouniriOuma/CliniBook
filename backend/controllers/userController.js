@@ -5,6 +5,30 @@ const User = require('../models/userModel');
    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
  };
 
+// get all Users
+const getUsers = async (req, res) => {
+  const users = await User.find({})
+  res.status(200).json(users)
+}
+
+// get a single user
+const getUser = async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such user'})
+  }
+
+  const user = await User.findById(id)
+
+  if (!user) {
+    return res.status(404).json({error: 'No such user'})
+  }
+
+  res.status(200).json(user)
+}
+
+
 // Login a user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -57,4 +81,4 @@ const changeUserRole = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, changeUserRole };
+module.exports = { signupUser, loginUser, changeUserRole, getUsers, getUser };
