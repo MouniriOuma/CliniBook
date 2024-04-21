@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4c6474', // New primary color (darker accent)
+    backgroundColor: '#b5cdd7', // New primary color (darker accent)
   },
   logoContainer: {
     marginTop: -100
@@ -69,18 +69,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_200ExtraLight',
     marginBottom: 20,
     marginTop: -60,
-    color: '#FFFFFF', // Text color adjusted for contrast
+    color: '#184557', // Text color adjusted for contrast
   },
   inputContainer: {
     width: '80%',
     marginVertical: 10,
     borderBottomWidth: 2,
-    borderBottomColor: '#7ba6b3', // Lighter accent color
+    borderBottomColor: '#184557', // Lighter accent color
   },
   inputField: {
     height: 40,
     fontSize: 16,
-    color: '#FFFFFF', // Text color adjusted for contrast
+    color: '#072d42', // Text color adjusted for contrast
   },
   button: {
     width: '80%',
