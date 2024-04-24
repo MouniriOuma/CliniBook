@@ -37,38 +37,13 @@ const SignUp = () => {
         phone: yup.string().matches(/^\+?[0-9]+$/, 'Invalid phone number').required('Phone is required'),
     });
 
-    /* const handleSignUp = async () => {
-        try {
-          await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });
-          await signup(name, lastName, email, password, phone)
-          setErrors({});
-        } catch (error) {
-          console.error('Error signing up:', error);
-          if (error instanceof yup.ValidationError) {
-            // Extracting yup specific validation errors from the list of total errors
-            const yupErrors = {};
-            error.inner.forEach((innerError) => {
-              yupErrors[innerError.path] = innerError.message;
-            });
-            // Saving extracted errors
-            setErrors(yupErrors);
-          }
-        }
-      }; */
 
       const handleSignUp = async () => {
         try {
-          console.log('Starting signup process...');
-      
-          await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });
-          
-          console.log('Validation successful. Attempting signup...');
-      
+          await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });              
           await signup(name, lastName, email, password, phone);
-      
-          console.log('Signup successful!');
-          
           setErrors({});
+
         } catch (error) {
           console.error('Error signing up:', error);
       

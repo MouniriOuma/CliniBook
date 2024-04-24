@@ -13,41 +13,26 @@ import SignUp from './src/pages/SignUp';
 import OnboardingScreen from './src/pages/OnboardingScreen';
 import Test from './src/pages/test';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  /* useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const response = await fetch('localhost:4000/api/user/');
-        if (!response.ok) {
-          throw new Error('Failed to fetch users');
-        }
-        const data = await response.json();
-        console.log(data); 
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
-    getUsers();
-  }, []); */
   return (
     <SafeAreaView style={{ flex: 1}}>
-      <NavigationContainer>
+      {/* <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
-    </NavigationContainer>
-      {/* <AuthContextProvider>
+    </NavigationContainer> */}
+       <AuthContextProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName='SignUp'>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
-      </AuthContextProvider> */}
+      </AuthContextProvider> 
     </SafeAreaView>
   );
 }

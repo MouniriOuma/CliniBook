@@ -53,13 +53,8 @@ const signup = async (name, lastName, email, password, phone) => {
   setError(null);
 
   try {
-    console.log('Sending signup request...');
-    console.log('User object before sending:', { name, lastName, email, password, phone });
-
     const user = { name, lastName, email, password, phone };
     const response = await UserService.signup(user);
-
-    console.log('Signup request sent. Waiting for response...');
 
     if (!response.ok) {
       console.log('Signup request failed. Response:', response);

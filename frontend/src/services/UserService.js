@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "http://localhost:4000/api/user";
+const USER_API_BASE_URL = "https://8d05-105-71-134-248.ngrok-free.app/api/user";
 
 class UserService {
   getUsers() {
