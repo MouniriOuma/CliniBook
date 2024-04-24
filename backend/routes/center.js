@@ -8,13 +8,14 @@ const {
   updateCenter,
 } = require('../controllers/centerController')
 
-//const {requireAuth, authorizeRoles}  = require('../middleware/requireAuth')
-
+const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router()
+
+router.use(requireAuth)
+
 /* 
 // require auth for all Appointment routes
-router.use(requireAuth)
 
 // GET all Centers
 router.get('/', authorizeRoles(["admin","user"]), getCenters)
@@ -34,18 +35,18 @@ router.patch('/:id', authorizeRoles("admin"), updateCenter) */
 
 
 // GET all Centers
-router.get('/',  getCenters)
+router.get('/', requireAuth,  getCenters)
 
 // GET a single Center
-router.get('/:id',  getCenter)
+router.get('/:id', requireAuth,  getCenter)
 
 // POST a new Center
-router.post('/',  createCenter)
+router.post('/', requireAuth,  createCenter)
 
 // DELETE a Center
-router.delete('/:id', deleteCenter)
+router.delete('/:id', requireAuth, deleteCenter)
 
 // UPDATE a Center
-router.patch('/:id',  updateCenter)
+router.patch('/:id', requireAuth,  updateCenter)
 
 module.exports = router

@@ -16,18 +16,18 @@ const router = express.Router()
 router.use(requireAuth)
 
 // GET all Timeslots
-router.get('/', getTimeSlots)
+router.get('/', requireAuth, getTimeSlots)
 
 // GET a single Timeslot
-router.get('/:id', getTimeSlot)
+router.get('/:id', requireAuth, getTimeSlot)
 
 // POST a new Timeslot
-router.post('/', createTimeSlot)
+router.post('/', requireAuth, createTimeSlot)
 
 // DELETE a Timeslot
-router.delete('/:id', deleteTimeSlot)
+router.delete('/:id', requireAuth, deleteTimeSlot)
 
 // UPDATE a Timeslot
-router.patch('/:id', updateTimeSlot)
+router.patch('/:id', requireAuth, updateTimeSlot)
 
 module.exports = router

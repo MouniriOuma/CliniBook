@@ -8,10 +8,10 @@ const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser  } 
 const router = express.Router()
 
 //get all users
-router.get('/', getUsers);
+router.get('/', requireAuth, getUsers);
 
 //get user
-router.get('/:id', getUser);
+router.get('/:id', requireAuth, getUser);
 
 // login route
 router.post('/login', loginUser)
@@ -24,6 +24,6 @@ router.post('/signup', signupUser)
 router.patch('/changeUserRole/:id', requireAuth, changeUserRole);
 
 // DELETE a user
-router.delete('/:id',requireAuth, deleteUser )
+router.delete('/:id', requireAuth, deleteUser )
 
 module.exports = router
