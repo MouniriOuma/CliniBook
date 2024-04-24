@@ -7,11 +7,14 @@ const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser  } 
 
 const router = express.Router()
 
+// require auth for all user routes
+router.use(requireAuth)
+
 //get all users
-router.get('/', requireAuth, getUsers);
+router.get('/',  getUsers);
 
 //get user
-router.get('/:id', requireAuth, getUser);
+router.get('/:id',  getUser);
 
 // login route
 router.post('/login', loginUser)
@@ -20,10 +23,10 @@ router.post('/login', loginUser)
 router.post('/signup', signupUser)
 
 // Route to change user role by admin
-//router.patch('/changeUserRole/:id', requireAuth, authorizeRoles('admin'), changeUserRole);
-router.patch('/changeUserRole/:id', requireAuth, changeUserRole);
+//router.patch('/changeUserRole/:id',  authorizeRoles('admin'), changeUserRole);
+router.patch('/changeUserRole/:id',  changeUserRole);
 
 // DELETE a user
-router.delete('/:id', requireAuth, deleteUser )
+router.delete('/:id',  deleteUser )
 
 module.exports = router

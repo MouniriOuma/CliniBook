@@ -35,18 +35,18 @@ router.patch('/:id', authorizeRoles("admin"), updateCenter) */
 
 
 // GET all Centers
-router.get('/', requireAuth,  getCenters)
+router.get('/',  getCenters)
 
 // GET a single Center
-router.get('/:id', requireAuth,  getCenter)
+router.get('/:id',  getCenter)
 
 // POST a new Center
-router.post('/', requireAuth,  createCenter)
+router.post('/',  createCenter)
 
 // DELETE a Center
-router.delete('/:id', requireAuth, deleteCenter)
+router.delete('/:id', deleteCenter)
 
 // UPDATE a Center
-router.patch('/:id', requireAuth,  updateCenter)
+router.patch('/:id',  updateCenter)
 
 module.exports = router

@@ -16,18 +16,18 @@ const router = express.Router()
 router.use(requireAuth)
 
 // GET all Appointments
-router.get('/', requireAuth, getAppointments)
+router.get('/', getAppointments)
 
 // GET a single Appointment
-router.get('/:id', requireAuth, getAppointment)
+router.get('/:id', getAppointment)
 
 // POST a new Appointment
-router.post('/', requireAuth, createAppointment)
+router.post('/', createAppointment)
 
 // DELETE a Appointment
-router.delete('/:id', requireAuth, deleteAppointment)
+router.delete('/:id', deleteAppointment)
 
 // UPDATE a Appointment
-router.patch('/:id', requireAuth, updateAppointment)
+router.patch('/:id', updateAppointment)
 
 module.exports = router
