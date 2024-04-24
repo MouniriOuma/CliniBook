@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#b5cdd7', // New primary color (darker accent)
+    backgroundColor: '#e2e8ef',
   },
   logoContainer: {
     marginTop: -150
@@ -110,23 +110,23 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_200ExtraLight',
     marginBottom: 20,
     marginTop: -100,
-    color: '#184557', // Text color adjusted for contrast
+    color: '#184557',
   },
   inputContainer: {
     width: '80%',
     marginVertical: 10,
     borderBottomWidth: 2,
-    borderBottomColor: '#184557', // Lighter accent color
+    borderBottomColor: '#184557',
   },
   inputField: {
     height: 40,
     fontSize: 16,
-    color: '#072d42', // Text color adjusted for contrast
+    color: '#072d42',
   },
   button: {
     width: '80%',
     height: 40,
-    backgroundColor: '#184557', // Darkest accent color
+    backgroundColor: '#184557',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#FFFFFF', // White text for button
+    color: '#FFFFFF'
   },
   signUpLink: {
     marginTop: 10,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   signUpLinkText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#7ba6b3', // Lighter accent color for link
+    color: '#7ba6b3',
   },
   error: {
     color: '#c0392b',

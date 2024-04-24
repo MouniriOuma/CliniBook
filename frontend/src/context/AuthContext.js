@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = createContext();
 
@@ -15,21 +15,22 @@ export const authReducer = (state, action) => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const initialState = { user: null };
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    const getUserFromStorage = async () => {
+    const loadUser = async () => {
       try {
         const user = await AsyncStorage.getItem('user');
         if (user) {
           dispatch({ type: 'LOGIN', payload: JSON.parse(user) });
         }
       } catch (error) {
-        console.error('Error retrieving user data:', error);
+        console.error('Error loading user:', error);
       }
     };
 
-    getUserFromStorage();
+    loadUser();
   }, []);
 
   console.log('AuthContext state:', state);

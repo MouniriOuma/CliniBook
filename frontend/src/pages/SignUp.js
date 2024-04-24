@@ -5,8 +5,7 @@ import { Poppins_200ExtraLight } from '@expo-google-fonts/poppins';
 import { useFonts } from "expo-font";
 import { Muli_400Regular } from '@expo-google-fonts/muli';
 import * as yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
-
+import { useSignup } from '../hooks/useSignUp';
 
 
 const SignUp = () => {
@@ -17,6 +16,8 @@ const SignUp = () => {
   const [phone, setPhone] = useState('');
 
   const [errors, setErrors] = useState({});
+
+  const { signup, isLoading, error } = useSignup()
 
     const [fontsLoaded] = useFonts({
         Poppins_200ExtraLight,
@@ -36,12 +37,11 @@ const SignUp = () => {
         phone: yup.string().matches(/^\+?[0-9]+$/, 'Invalid phone number').required('Phone is required'),
     });
 
-    const handleSignUp = async () => {
+    /* const handleSignUp = async () => {
         try {
           await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });
-          console.log('Form fields cleared successfully');
+          await signup(name, lastName, email, password, phone)
           setErrors({});
-          // Perform sign up logic
         } catch (error) {
           console.error('Error signing up:', error);
           if (error instanceof yup.ValidationError) {
@@ -54,7 +54,37 @@ const SignUp = () => {
             setErrors(yupErrors);
           }
         }
+      }; */
+
+      const handleSignUp = async () => {
+        try {
+          console.log('Starting signup process...');
+      
+          await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });
+          
+          console.log('Validation successful. Attempting signup...');
+      
+          await signup(name, lastName, email, password, phone);
+      
+          console.log('Signup successful!');
+          
+          setErrors({});
+        } catch (error) {
+          console.error('Error signing up:', error);
+      
+          if (error instanceof yup.ValidationError) {
+            // Extracting yup specific validation errors from the list of total errors
+            const yupErrors = {};
+            error.inner.forEach((innerError) => {
+              yupErrors[innerError.path] = innerError.message;
+            });
+      
+            // Saving extracted errors
+            setErrors(yupErrors);
+          }
+        }
       };
+      
 
       const handleReset = () => {
         setName('');
@@ -130,9 +160,10 @@ const SignUp = () => {
       </View>
 
 
-      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+      <TouchableOpacity style={styles.button} onPress={handleSignUp} disabled={isLoading}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+      {error && <Text style={styles.error}>{error}</Text>}
 
       <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
         <Text style={styles.resetButtonText}>Reset</Text>
@@ -147,7 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#b5cdd7', 
+    backgroundColor: '#e2e8ef', 
   },
   logoContainer: {
     marginTop: -150
@@ -187,7 +218,7 @@ const styles = StyleSheet.create({
   resetButton: {
     width: '80%',
     height: 40,
-    backgroundColor: '#f2f2f2', 
+    backgroundColor: '#c2d7e3', 
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
