@@ -3,7 +3,7 @@ const express = require('express')
 const requireAuth = require('../middleware/requireAuth');
 
 // controller functions
-const { loginUser, signupUser, changeUserRole, getUsers, getUser  } = require('../controllers/userController')
+const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser  } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -20,7 +20,10 @@ router.post('/login', loginUser)
 router.post('/signup', signupUser)
 
 // Route to change user role by admin
-//router.put('/changeUserRole/:id', requireAuth, authorizeRoles('admin'), changeUserRole);
-router.put('/changeUserRole/:id', requireAuth, changeUserRole);
+//router.patch('/changeUserRole/:id', requireAuth, authorizeRoles('admin'), changeUserRole);
+router.patch('/changeUserRole/:id', requireAuth, changeUserRole);
+
+// DELETE a user
+router.delete('/:id',requireAuth, deleteUser )
 
 module.exports = router
