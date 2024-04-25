@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from "../services/UserService";
 
 
-const Centers = ({ navigation }) => {
+const CentersUser = ({ navigation }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
       <Text>centers list</Text>
@@ -15,4 +15,4 @@ const Centers = ({ navigation }) => {
   );
 }
 
-export default Centers;
+export default CentersUser;
