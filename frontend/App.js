@@ -12,11 +12,40 @@ import Login from './src/pages/login'
 import SignUp from './src/pages/SignUp';
 import OnboardingScreen from './src/pages/OnboardingScreen';
 import Test from './src/pages/test';
+import Test2 from './src/pages/test2';
+import { useAuthContext } from './src/hooks/useAuthContext';
 
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  
+
+  
+ const AuthStack = () => {
+ const { user } = useAuthContext()
+
+  return (
+    <Stack.Navigator>
+      {user ? (
+        <>
+        <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} options={{ headerShown: false }}/>
+        </>
+        
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+          <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
+          <Stack.Screen name="Test" component={Test} options={{ headerShown: false }}/>
+          
+        </>
+      )}
+    </Stack.Navigator>
+  );
+  };  
+
+  
   return (
     <SafeAreaView style={{ flex: 1}}>
       {/* <NavigationContainer>
@@ -25,14 +54,11 @@ export default function App() {
         <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer> */}
-       <AuthContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName='SignUp'>
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AuthContextProvider> 
+    <AuthContextProvider>
+      <NavigationContainer>
+      <AuthStack/>
+      </NavigationContainer>
+    </AuthContextProvider>
     </SafeAreaView>
   );
 }

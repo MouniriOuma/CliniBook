@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useSignup } from '../hooks/useSignUp';
 
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -42,6 +42,7 @@ const SignUp = () => {
         try {
           await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });              
           await signup(name, lastName, email, password, phone);
+          navigation.replace('OnboardingScreen');
           setErrors({});
 
         } catch (error) {
@@ -69,6 +70,7 @@ const SignUp = () => {
         setPhone('');
         setErrors({});
       };
+
 
   return (
     <View style={styles.container}>

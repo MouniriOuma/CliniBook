@@ -5,8 +5,9 @@ import { useFonts } from "expo-font";
 import { Muli_400Regular } from '@expo-google-fonts/muli';
 import logo from '../../assets/logo.png'
 import * as yup from 'yup';
+import { useLogin } from '../hooks/useLogin';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
     Muli_400Regular,
@@ -16,10 +17,17 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
+  const { login, isLoading, error } = useLogin()
+
   const schema = yup.object().shape({
     email: yup.string().required('Email is required'),
     password: yup.string().required('Password is required'),
   });
+
+  const clearInputFields = () => {
+    setEmail('');
+    setPassword('');
+  };
 
   const handleLogin = async () => {
     try {
@@ -28,10 +36,13 @@ const Login = () => {
       console.log('Password:', password);
 
       await schema.validate({ email, password }, { abortEarly: false });
-      console.log('Form fields cleared successfully');
+      await login(email, password);
+      navigation.reset({ index: 0, routes: [{ name: 'Test' }] });
 
       setErrors({});
       // Perform login logic
+      clearInputFields();
+      console.log('Form fields cleared successfully');
     } catch (error) {
       console.error('Error logging in:', error);
       if (error instanceof yup.ValidationError) {
@@ -43,6 +54,11 @@ const Login = () => {
       }
     }
   };
+
+  const goToSignup = () => {
+    navigation.navigate('SignUp');
+  };
+
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
@@ -83,7 +99,7 @@ const Login = () => {
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.signUpLink}>
+      <TouchableOpacity style={styles.signUpLink} onPress={goToSignup}>
         <Text>you don't have an account?<Text style={styles.signUpLinkText}> Sign Up</Text> </Text>
       </TouchableOpacity>
     </View>

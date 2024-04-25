@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from '../services/UserService';
+import AuthService from '../services/AuthService';
 import { useAuthContext } from './useAuthContext';
 
 export const useLogin = () => {
@@ -13,12 +14,11 @@ export const useLogin = () => {
     setError(null);
 
     try {
-      const response = await UserService.loginUser({
-        email,
-        password
-      });
+      const user = { email, password };
+      const response = await AuthService.loginUser(user);
 
-      if (!response.ok) {
+      if (response.status !== 200) {
+        console.log('Login request failed. Response:', response);
         const json = await response.data;
         setIsLoading(false);
         setError(json.error);
@@ -26,7 +26,7 @@ export const useLogin = () => {
       }
 
       const json = await response.data;
-
+      console.log('Login successful. Response:', json);
       // Save the user to AsyncStorage
       await AsyncStorage.setItem('user', JSON.stringify(json));
 
