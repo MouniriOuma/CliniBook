@@ -12,8 +12,8 @@ const Stack = createStackNavigator();
 
 const CenterUserStack = () => {
     return (
-        <Stack.Navigator initialRouteName='Centers' screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Centers" component={CentersUser} />
+        <Stack.Navigator initialRouteName='CentersUser' screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="CentersUser" component={CentersUser} />
             <Stack.Screen name="CenterInfo" component={CenterInfo} />
             <Stack.Screen name="Booking" component={Booking} />
       </Stack.Navigator>
