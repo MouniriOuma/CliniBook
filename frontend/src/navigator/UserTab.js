@@ -24,7 +24,7 @@ const UserTab = () => {
             <Tab.Screen 
                 name="Centers" 
                 component={CenterUserStack} 
-                options={{tabBarIcon: ({ color, size }) => (<Ionicons name="map" size={size} color={color} />)}} 
+                options={{tabBarIcon: ({ color, size }) => (<Ionicons name="medkit" size={size} color={color} />)}} 
             />
 
             <Tab.Screen 
