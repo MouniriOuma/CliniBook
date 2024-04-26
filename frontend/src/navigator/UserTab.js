@@ -11,15 +11,15 @@ const UserTab = () => {
     return (
         <Tab.Navigator  
         initialRouteName='Profile'
-        screenOptions={{ headerShown: false }}
-        >
-          <Tab.Screen name="Centers" component={CenterStack} />
-          <Tab.Screen name="Profile" component={Profile} />
-          <Tab.Screen name="Appointments" component={MyAppointments} />
-          
-  
+        screenOptions={{ headerShown: false }}>
+
+        <Tab.Screen name="Centers" component={CenterStack} />
+        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Appointments" component={MyAppointments} />
+        
+
         </Tab.Navigator>
     );
-  };
+};
 
 export default UserTab;
