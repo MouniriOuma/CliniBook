@@ -12,7 +12,7 @@ import CentersUser from '../pages/CentersUser';
 
 const Tab = createBottomTabNavigator();
 
-const CenterStack = () => {
+const CenterUserStack = () => {
     return (
         <Stack.Navigator initialRouteName='Centers' screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Centers" component={CentersUser} />
@@ -22,4 +22,4 @@ const CenterStack = () => {
     );
   };
 
-export default CenterStack;
+export default CenterUserStack;
