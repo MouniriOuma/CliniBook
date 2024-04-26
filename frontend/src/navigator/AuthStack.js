@@ -8,7 +8,8 @@ import Login from '../pages/login'
 import SignUp from '../pages/SignUp';
 import Test from '../pages/test';
 import UserTab from '../navigator/UserTab';
-import Onboarding from 'react-native-onboarding-swiper';
+import OnboardingScreen from '../pages/OnboardingScreen';
+
 
 
 
@@ -22,7 +23,11 @@ const Stack = createStackNavigator();
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user ? (
         <>
+        {/* add condition for user type (user, admin) 
+        <Stack.Screen name="AdminTab" component={AdminTab} />
+        */}
         <Stack.Screen name="UserTab" component={UserTab} />
+
         </>
         
       ) : (

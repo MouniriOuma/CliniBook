@@ -1,16 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 //pages
-import Profile from '../pages/Profile';
-import Test from '../pages/test';
-import Onboarding from 'react-native-onboarding-swiper';
-import HomeUser from '../pages/HomeUser';
 import CenterInfo from '../pages/CenterInfo';
 import Booking from '../pages/Booking';
 import CentersUser from '../pages/CentersUser';
 
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
 
 const CenterUserStack = () => {
     return (

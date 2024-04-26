@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Button } from "react-native";
 import { useLogout } from "../hooks/useLogout";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import UserService from "../services/UserService";
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Profile = ({ navigation }) => {
@@ -13,7 +11,6 @@ const Profile = ({ navigation }) => {
   
  const handleLogout = () => {
   logout()
-  navigation.replace('Login')
 }
 
   return (
@@ -23,8 +20,7 @@ const Profile = ({ navigation }) => {
           <View style={styles.profileIcon}>
             <Ionicons name="person-circle-outline" size={100} color="#007260" />
           </View>
-          <Text style={styles.username}>{creator}</Text>
-          <Text style={styles.userEmail}>{creatorEmail}</Text>
+          <Text style={styles.username}>user name here</Text>
         </View>
       </View>
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
@@ -33,5 +29,49 @@ const Profile = ({ navigation }) => {
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  card: {
+    
+    marginTop: 60,
+    borderColor: '#39B68D', 
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    width: '80%',
+    alignItems: 'center',
+  },
+  profileHeader: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profileIcon: {
+    marginBottom: 10,
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#007260',
+  },
+  logoutButton: {
+    backgroundColor: '#39B68D',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
 
 export default Profile;

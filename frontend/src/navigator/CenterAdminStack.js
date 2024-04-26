@@ -15,8 +15,8 @@ const Tab = createBottomTabNavigator();
 
 const CenterAdminStack = () => {
     return (
-        <Stack.Navigator initialRouteName='Centers' screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Centers" component={CentersAdmin} />
+        <Stack.Navigator initialRouteName='All Centers' screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="All centers" component={CentersAdmin} />
             <Stack.Screen name="AddCenter" component={AddCenter} />
       </Stack.Navigator>
     );

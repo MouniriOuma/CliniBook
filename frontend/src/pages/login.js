@@ -37,7 +37,6 @@ const Login = ({ navigation }) => {
 
       await schema.validate({ email, password }, { abortEarly: false });
       await login(email, password);
-      navigation.reset({ index: 0, routes: [{ name: 'Test' }] });
 
       setErrors({});
       // Perform login logic
