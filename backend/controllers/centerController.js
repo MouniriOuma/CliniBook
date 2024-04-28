@@ -27,7 +27,7 @@ const getCenter = async (req, res) => {
 
 // create a new center
 const createCenter = async (req, res) => {
-  const {name, location, contact, specializations} = req.body
+  const {name, address, city, contact, specializations} = req.body
 
   //check for empty field
   let emptyFields = []
@@ -35,8 +35,8 @@ const createCenter = async (req, res) => {
   if (!name) {
     emptyFields.push('name')
   }
-  if (!location || !location.city || !location.address) {
-    emptyFields.push('location');
+  if (!city || !address) {
+    throw Error('city and address must be filled')
   }
   if (!contact) {
     emptyFields.push('contact')
@@ -52,7 +52,7 @@ const createCenter = async (req, res) => {
   
   // add to the database
   try {
-    const center = await Center.create({ name, location, contact, specializations })
+    const center = await Center.create({ name, address, city, contact, specializations })
     res.status(200).json(center)
   } catch (error) {
     res.status(400).json({ error: error.message })
