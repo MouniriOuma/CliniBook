@@ -3,7 +3,7 @@ const express = require('express')
 const requireAuth = require('../middleware/requireAuth');
 
 // controller functions
-const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser  } = require('../controllers/userController')
+const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser, getUserRoleByEmail  } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -18,6 +18,11 @@ router.get('/', requireAuth,  getUsers);
 
 //get user
 router.get('/:id', requireAuth,  getUser);
+
+//get user role
+router.get('/email/:email', requireAuth,  getUserRoleByEmail);
+
+
 
 // Route to change user role by admin
 //router.patch('/changeUserRole/:id',  authorizeRoles('admin'), changeUserRole);

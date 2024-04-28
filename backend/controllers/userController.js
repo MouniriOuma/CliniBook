@@ -1,5 +1,7 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
@@ -28,6 +30,28 @@ const getUser = async (req, res) => {
   res.status(200).json(user)
 }
 
+// get user role
+const getUserRoleByEmail = async (req, res) => {
+  const { email } = req.params
+  try {
+    const user = await User.findOne({ email });
+    //const user = await this.findOne({ email });
+    console.log
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // You can access the user's role from the user object
+    const role = user.role;
+
+    return role;
+  } catch (error) {
+    console.error('Error fetching user role:', error);
+    throw error;
+  }
+};
+
 
 // Login a user
 const loginUser = async (req, res) => {
@@ -47,10 +71,10 @@ const loginUser = async (req, res) => {
 
 // Signup a user
 const signupUser = async (req, res) => {
-  const { name, lastName, email, password, phone } = req.body;
+  const { name, lastName, email, location, password, phone } = req.body;
 
   try {
-    const user = await User.signup(name, lastName, email, password, phone);
+    const user = await User.signup(name, lastName, email, location, password, phone);
 
     // Create a token
     const token = createToken(user._id);
@@ -100,4 +124,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { signupUser, loginUser, changeUserRole, getUsers, getUser, deleteUser };
+module.exports = { signupUser, loginUser, changeUserRole, getUsers, getUser, deleteUser, getUserRoleByEmail };

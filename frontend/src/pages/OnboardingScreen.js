@@ -8,10 +8,10 @@ function OnboardingScreen({navigation}) {
         <Onboarding
 
         //To handle the navigation to the Homepage if Skip is clicked
-        onSkip={() => navigation.replace("Test")}
+        onSkip={() => navigation.replace("UserTab")}
 
         //To handle the navigation to the Homepage after Done is clicked
-        onDone={() => navigation.replace("Test")}
+        onDone={() => navigation.replace("UserTab")}
 
         pages={[
         {

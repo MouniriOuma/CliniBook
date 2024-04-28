@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "https://8d05-105-71-134-248.ngrok-free.app/api/user";
+const USER_API_BASE_URL = "https://bee4-105-66-134-152.ngrok-free.app/api/user";
+
 
 
 const UserService = (token) => {
@@ -15,42 +16,47 @@ const UserService = (token) => {
     }
   };
 
+  const getUser = async (id) => {
+    try {
+      const response = await axios.get(`${USER_API_BASE_URL}/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Error fetching user:', error);
+    }
+  };
+
+  const changeUserRole = async (id, role) => {
+    try {
+      const response = await axios.patch(`${USER_API_BASE_URL}/changeUserRole/${id}`, { role }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Error changing user role:', error);
+    }
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      const response = await axios.delete(`${USER_API_BASE_URL}/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Error deleting user:', error);
+    }
+  };
+
+  //add function to fetch the loged in user infos based on the email
+
   return {
-    getUsers
+    getUsers,
+    getUser,
+    changeUserRole,
+    deleteUser
   };
 };
 
 export default UserService;
-
-/* 
-
-  // getUsers(token) {
-  //   return axios.get(`${USER_API_BASE_URL}/`, { headers: { Authorization: `Bearer ${this.token}` } });
-  // }
-
-  export const getUsers = async (token) => {
-    const response = await axios.get(`${USER_API_BASE_URL}/`, { headers: { Authorization: `Bearer ${this.token}` } });
-  } 
-
-  // getUser(id) {
-  //   return axios.get(`${USER_API_BASE_URL}/${id}`, { headers: { Authorization: `Bearer ${this.token}` } });
-  // }
-
-  // loginUser(user) {
-  //   return axios.post(`${USER_API_BASE_URL}/login`, user);
-  // }
-
-  // signup(user) {
-  //   return axios.post(`${USER_API_BASE_URL}/signup`, user);
-  // }
-
-  // changeUserRole(id, role) {
-  //   return axios.patch(`${USER_API_BASE_URL}/changeUserRole/${id}`, { role }, { headers: { Authorization: `Bearer ${this.token}` } });
-  // }
-
-  // deleteUser(id) {
-  //   return axios.delete(`${USER_API_BASE_URL}/${id}`, { headers: { Authorization: `Bearer ${this.token}` } });
-  // }
-
-
- */

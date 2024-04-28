@@ -25,6 +25,16 @@ const userSchema = new Schema({
       message: 'Please enter a valid email address',
     },
   },
+  location: {
+    city: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    }
+},
   password: {
     type: String,
     required: true,
@@ -42,10 +52,10 @@ const userSchema = new Schema({
 });
 
 // static signup method
-userSchema.statics.signup = async function(name, lastName, email, password, phone) {
+userSchema.statics.signup = async function(name, lastName, email, location, password, phone) {
 
   // validation
-  if (!email || !password || !name || !lastName || !phone) {
+  if (!email || !password || !name || !location || !lastName || !phone) {
     throw Error('All fields must be filled')
   }
   if (!validator.isEmail(email)) {
@@ -57,6 +67,9 @@ userSchema.statics.signup = async function(name, lastName, email, password, phon
   if (!validator.isMobilePhone(phone)) { 
     throw Error('Phone number is not valid');
   }
+  if (!location || !location.city || !location.address) {
+    emptyFields.push('location');
+  }
 
   const exists = await this.findOne({ email })
 
@@ -67,7 +80,7 @@ userSchema.statics.signup = async function(name, lastName, email, password, phon
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ name, lastName, email, password: hash, phone })
+  const user = await this.create({ name, lastName, email, location, password: hash, phone })
 
   return user
 }

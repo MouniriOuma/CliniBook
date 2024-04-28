@@ -8,12 +8,21 @@ const centerSchema = new Schema({
         required: true
     },
     location: {
-        type: String,
-        required: true
+        city: {
+            type: String,
+            required: true
+        },
+        address: {
+            type: String,
+            required: true
+        }
     },
     contact: {
         type: String,
-    }
+    },
+    specializations: [{
+        type: String
+    }]
 })
 
 module.exports = mongoose.model('center', centerSchema)

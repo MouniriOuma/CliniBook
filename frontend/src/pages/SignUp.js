@@ -42,7 +42,7 @@ const SignUp = ({ navigation }) => {
         try {
           await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });              
           await signup(name, lastName, email, password, phone);
-          navigation.replace('OnboardingScreen');
+          
           setErrors({});
 
         } catch (error) {

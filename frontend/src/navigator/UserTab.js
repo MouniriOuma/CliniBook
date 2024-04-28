@@ -11,9 +11,7 @@ const Tab = createBottomTabNavigator();
 const UserTab = () => {
     return (
         <Tab.Navigator  
-            initialRouteName='Profile'
-            //screenOptions={{ headerShown: false }}
-            //tabBarOptions={{ activeTintColor: '#184557' }}
+            initialRouteName='Centers'
             screenOptions={{ 
                 headerShown: false,
                 tabBarActiveTintColor: '#184557',

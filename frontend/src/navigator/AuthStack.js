@@ -26,15 +26,15 @@ const Stack = createStackNavigator();
         {/* add condition for user type (user, admin) 
         <Stack.Screen name="AdminTab" component={AdminTab} />
         */}
+        <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         <Stack.Screen name="UserTab" component={UserTab} />
 
         </>
         
       ) : (
         <>
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-          <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
-          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
 
         </>
       )}
