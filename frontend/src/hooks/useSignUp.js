@@ -8,12 +8,12 @@ export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
-const signup = async (name, lastName, email, password, phone) => {
+const signup = async (name, lastName, email, address, city, password, phone ) => {
   setIsLoading(true);
   setError(null);
 
   try {
-    const user = { name, lastName, email, password, phone };
+    const user = { name, lastName, email, address, city, password, phone};
     const response = await AuthService.signup(user);
 
     if (response.status !== 200) {

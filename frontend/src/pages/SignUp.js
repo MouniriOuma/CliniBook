@@ -14,6 +14,8 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
 
   const [errors, setErrors] = useState({});
 
@@ -35,13 +37,15 @@ const SignUp = ({ navigation }) => {
         email: yup.string().email('Invalid email').required('Email is required'),
         password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
         phone: yup.string().matches(/^\+?[0-9]+$/, 'Invalid phone number').required('Phone is required'),
+        city: yup.string().required('City is required'),
+        address: yup.string().required('Address is required'),
     });
 
 
       const handleSignUp = async () => {
         try {
-          await schema.validate({ name, lastName, email, password, phone }, { abortEarly: false });              
-          await signup(name, lastName, email, password, phone);
+          await schema.validate({ name, lastName, email, password, phone, city, address }, { abortEarly: false });              
+          await signup(name, lastName, email, address, city, password, phone );
           
           setErrors({});
 
@@ -68,6 +72,8 @@ const SignUp = ({ navigation }) => {
         setEmail('');
         setPassword('');
         setPhone('');
+        setCity('');
+        setAddress('');
         setErrors({});
       };
 
@@ -112,6 +118,26 @@ const SignUp = ({ navigation }) => {
         />
         {errors.phone && <Text style={styles.error}>{errors.phone}</Text>}
         </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="City"
+          value={city}
+          onChangeText={setCity}
+          style={styles.inputField}
+        />
+        {errors.city && <Text style={styles.error}>{errors.city}</Text>}
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Address"
+          value={address}
+          onChangeText={setAddress}
+          style={styles.inputField}
+        />
+        {errors.address && <Text style={styles.error}>{errors.address}</Text>}
+      </View>
 
       <View style={styles.inputContainer}>
       <TextInput
