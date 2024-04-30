@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "https://bee4-105-66-134-152.ngrok-free.app/api/user";
+const USER_API_BASE_URL = "https://37db-105-66-7-134.ngrok-free.app/api/user";
 
 
 
@@ -26,6 +26,16 @@ const UserService = (token) => {
       throw new Error('Error fetching user:', error);
     }
   };
+  const getUserByEmail = async (email) => {
+    try {
+      const response = await axios.get(`${USER_API_BASE_URL}/email/${email}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Error fetching user details:', error);
+    }
+  };
 
   const changeUserRole = async (id, role) => {
     try {
@@ -49,11 +59,11 @@ const UserService = (token) => {
     }
   };
 
-  //add function to fetch the loged in user infos based on the email
 
   return {
     getUsers,
     getUser,
+    getUserByEmail,
     changeUserRole,
     deleteUser
   };
