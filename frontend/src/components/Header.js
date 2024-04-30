@@ -2,21 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuthContext } from '../hooks/useAuthContext';
+import UserService from '../services/UserService';
 
 const Header = () => {
   const [creator, setCreator] = useState('');
-  const [creatorEmail, setCreatorEmail] = useState('');
+  const [creatorCity, setCreatorCity] = useState('');
   const { user } = useAuthContext();
 
   useEffect(() => {
-    if (user) {
-      // Extract username from email
-      const username = user.email.split('@')[0];
-      const userEmail = user.email;
-      setCreator(username);
-      setCreatorEmail(userEmail);
-    }
+    const fetchData = async () => {
+      if (user) {
+        const userService = UserService(user.token);
+        try {
+          const userData = await userService.getUserByEmail(user.email);
+          setCreator(userData.name);
+          setCreatorCity(userData.city);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+  
+    fetchData();
   }, [user]);
+  
 
   return (
     <View style={styles.container}>
@@ -26,7 +35,10 @@ const Header = () => {
       <View>
         <Text style={styles.username}>{creator}</Text>   
         <Text style={styles.greeting}>Good morning!</Text>
-        </View>    
+      </View>    
+      <View style={styles.userCityContainer}>
+      <Text style={styles.usercity}>{creatorCity}</Text>   
+      </View>
        
     </View>
   );
@@ -42,16 +54,23 @@ const styles = StyleSheet.create({
   userContainer: {
     width: 40,
     height: 40,
-    borderRadius: 20, // Half of width and height for a circle
+    borderRadius: 20,
     backgroundColor: '#184557',
     justifyContent: 'center',
     alignItems: 'center',
-    // flexDirection: 'row',
-    // alignItems: 'center',
   },
   username: {
     marginLeft: 10,
     fontWeight: 'bold',
+  },
+  userCityContainer: {
+    marginLeft: 200,
+    marginTop: 5,
+  },
+  usercity: {
+    marginLeft: 10,
+    fontWeight: 'bold',
+    fontSize: 15,
   },
   greeting: {
     marginLeft: 10,
