@@ -5,6 +5,7 @@ import CenterService from "../services/CenterService";
 import { useFonts } from "expo-font";
 import { Poppins_200ExtraLight } from '@expo-google-fonts/poppins';
 import { Muli_400Regular } from '@expo-google-fonts/muli';
+import { useNavigation } from "@react-navigation/native";
 
 
 
@@ -12,6 +13,7 @@ const CentersFiltered  = ({ filter }) => {
 
     const { user } = useAuthContext();
     const [centers, setCenters] = useState(null);
+    const navigation = useNavigation()
   
     const [fontsLoaded] = useFonts({
       Poppins_200ExtraLight,
@@ -31,10 +33,14 @@ const CentersFiltered  = ({ filter }) => {
         fetchCenters();
       }, [user.token]);
 
-      console.log('centers filter is ', filter)
 
       if (!fontsLoaded || centers === null ) {
         return <Text>Loading...</Text>;
+      }
+
+
+      const handleCenterInfo = () => {
+        navigation.navigate('')
       }
 
   return (
@@ -43,16 +49,19 @@ const CentersFiltered  = ({ filter }) => {
       {centers.map((center, index) => {
         if (center.specializations.includes(filter) || filter === center.city) {
           return (
-            <View key={index} style={styles.centerCard}>
-              <Text style={styles.centerName}>{center.name}</Text>
-              <Text>{center.contact}</Text>
-              <TouchableOpacity
-                style={styles.bookButton}
-                onPress={() => handleBook(center)}
-              >
-                <Text style={styles.bookButtonText}>Book</Text>
-              </TouchableOpacity>
-            </View>
+                
+            <TouchableOpacity onPress={() => handleCenterInfo(center)}>
+              <View key={index} style={styles.centerCard}>
+                <Text style={styles.centerName}>{center.name}</Text>
+                <Text>{center.contact}</Text>
+                <TouchableOpacity
+                  style={styles.bookButton}
+                  onPress={() => handleBook(center)}
+                >
+                  <Text style={styles.bookButtonText}>Book</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         } else {
           return null; 
