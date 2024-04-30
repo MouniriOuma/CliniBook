@@ -31,26 +31,17 @@ const getUser = async (req, res) => {
 }
 
 // get user role
-const getUserRoleByEmail = async (req, res) => {
+const getUserByEmail = async (req, res) => {
   const { email } = req.params
-  try {
+
     const user = await User.findOne({ email });
-    //const user = await this.findOne({ email });
-    console.log
 
     if (!user) {
-      throw new Error('User not found');
+      return res.status(404).json({error: 'No such user'})
     }
-
-    // You can access the user's role from the user object
-    const role = user.role;
-
-    return role;
-  } catch (error) {
-    console.error('Error fetching user role:', error);
-    throw error;
+  
+    res.status(200).json(user)
   }
-};
 
 
 // Login a user
@@ -124,4 +115,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { signupUser, loginUser, changeUserRole, getUsers, getUser, deleteUser, getUserRoleByEmail };
+module.exports = { signupUser, loginUser, changeUserRole, getUsers, getUser, deleteUser, getUserByEmail };

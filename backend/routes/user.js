@@ -3,7 +3,7 @@ const express = require('express')
 const requireAuth = require('../middleware/requireAuth');
 
 // controller functions
-const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser, getUserRoleByEmail  } = require('../controllers/userController')
+const { loginUser, signupUser, changeUserRole, getUsers, getUser, deleteUser, getUserByEmail  } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -20,7 +20,7 @@ router.get('/', requireAuth,  getUsers);
 router.get('/:id', requireAuth,  getUser);
 
 //get user role
-router.get('/email/:email', requireAuth,  getUserRoleByEmail);
+router.get('/email/:email', requireAuth,  getUserByEmail);
 
 
 
