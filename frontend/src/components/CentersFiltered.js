@@ -39,9 +39,7 @@ const CentersFiltered  = ({ filter }) => {
       }
 
 
-      const handleCenterInfo = () => {
-        navigation.navigate('')
-      }
+
 
   return (
     <View style={styles.containerCenter}>
@@ -50,13 +48,13 @@ const CentersFiltered  = ({ filter }) => {
         if (center.specializations.includes(filter) || filter === center.city) {
           return (
                 
-            <TouchableOpacity onPress={() => handleCenterInfo(center)}>
+            <TouchableOpacity onPress={() => navigation.navigate('CenterInfo', {center})}>
               <View key={index} style={styles.centerCard}>
                 <Text style={styles.centerName}>{center.name}</Text>
                 <Text>{center.contact}</Text>
                 <TouchableOpacity
                   style={styles.bookButton}
-                  onPress={() => handleBook(center)}
+                  onPress={() => navigation.navigate('Booking', { centerId: center._id })}
                 >
                   <Text style={styles.bookButtonText}>Book</Text>
                 </TouchableOpacity>

@@ -1,4 +1,4 @@
-const TimeSlot = require('../models/timeSlotModel');
+const TimeSlot = require('../models/timeslotModel');
 const mongoose = require('mongoose');
 
 // Get all time slots
@@ -46,9 +46,6 @@ const createTimeSlot = async (req, res) => {
     if (!time) {
       emptyFields.push('startTime')
     }
-    if (!availability) {
-      emptyFields.push('availability')
-    }    
     if (emptyFields.length > 0) {
       return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
     }
@@ -56,7 +53,7 @@ const createTimeSlot = async (req, res) => {
     
     //add to DB
     try {
-      const reservedBy = req.user._id
+      // const reservedBy = req.user._id
 
       const timeSlot = await TimeSlot.create({ center, date, time, availability, reservedBy });
 

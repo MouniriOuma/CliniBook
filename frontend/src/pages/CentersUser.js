@@ -29,7 +29,7 @@ const CentersUser = () => {
       }
     }; 
     fetchUser();
-  }, [user.token, user.email]);
+  }, [user]);
 
 
   const [fontsLoaded] = useFonts({
@@ -58,7 +58,7 @@ const CentersUser = () => {
 
         <View>
           {/* <CentersView /> */}
-          <CentersFiltered filter={userData.city} />
+          {/* <CentersFiltered filter={userData.city} /> */}
           <SpecialitiesCards />
         </View>
       </ScrollView>

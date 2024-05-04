@@ -21,6 +21,7 @@ const appointmentSchema = new Schema({
   confirmedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
+    default: null,
   }
 })
 

@@ -9,11 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@dgreasi/react-native-time-slot-picker": "^0.2.0",
     "@expo-google-fonts/hind-vadodara": "^0.2.3",
     "@expo-google-fonts/muli": "^0.1.0",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/vector-icons": "^14.0.0",
     "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-community/datetimepicker": "^8.0.0",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
@@ -27,6 +29,7 @@
     "react-native": "0.73.6",
     "react-native-gesture-handler": "^2.14.0",
     "react-native-linear-gradient": "^2.8.3",
+    "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-reanimated": "^3.6.2",
     "react-native-reanimated-carousel": "^3.5.1",

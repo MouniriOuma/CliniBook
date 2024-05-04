@@ -3,12 +3,30 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import { Ionicons } from '@expo/vector-icons';
+import UserService from "../services/UserService";
 
 
 const Profile = ({ navigation }) => {
  const { logout } = useLogout();
   const { user } = useAuthContext();
-  
+
+ const [userData, setUserData] = useState('');
+
+ useEffect(() => {
+  const fetchData = async () => {
+    if (user) {
+      const userService = UserService(user.token);
+      try {
+        const userData = await userService.getUserByEmail(user.email);
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    }
+  };      
+  fetchData();
+}, [user]);
+
  const handleLogout = () => {
   logout()
 }
@@ -20,7 +38,8 @@ const Profile = ({ navigation }) => {
           <View style={styles.profileIcon}>
             <Ionicons name="person-circle-outline" size={100} color="#007260" />
           </View>
-          <Text style={styles.username}>user name here</Text>
+          <Text style={styles.username}>{userData.name}</Text>
+          <Text style={styles.username}>{userData.role}</Text>
         </View>
       </View>
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>

@@ -47,7 +47,7 @@ const getUserAppointments = async (req, res) => {
 
 // Create a new appointment
 const createAppointment = async (req, res) => {
-  //const { user, timeSlot, validated } = req.body;
+  const { user, timeSlot } = req.body;
 
   //check for empty fields
   let emptyFields = []
@@ -58,17 +58,12 @@ const createAppointment = async (req, res) => {
   if (!timeSlot) {
     emptyFields.push('timeSlot')
   }
-  if (validated === undefined || validated === null) {
-    emptyFields.push('validated')
-  }
-  
   if (emptyFields.length > 0) {
     return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
   }
   
   try {
-    let confirmedBy = req.user._id || '6619c535b5947cc831568a35'
-    const appointment = await Appointment.create({ user, timeSlot, validated, confirmedBy });
+    const appointment = await Appointment.create({ user, timeSlot });
     res.status(201).json(appointment);
   } catch (error) {
     res.status(400).json({ error: error.message });

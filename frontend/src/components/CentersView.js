@@ -8,6 +8,7 @@ import CenterService from "../services/CenterService";
 
 
 
+
 const CentersView = () => {
 
   const { user } = useAuthContext();
@@ -37,6 +38,7 @@ const CentersView = () => {
     return <Text>Loading...</Text>;
   }
 
+
     return (
       <View style={styles.containerCenter}>
         <Text style={styles.header}>Our centers</Text>
@@ -44,8 +46,7 @@ const CentersView = () => {
           <View key={index} style={styles.centerCard}>
             <Text style={styles.centerName}>{center.name}</Text>
             <Text>{center.contact}</Text>
-            <Text>{center.location}</Text>
-            <TouchableOpacity style={styles.bookButton} onPress={() => handleBook(center)}>
+            <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('Booking', center)}>
               <Text style={styles.bookButtonText}>Book</Text>
             </TouchableOpacity>
           </View>
@@ -54,9 +55,6 @@ const CentersView = () => {
     );
   };
   
-  const handleBook = (center) => {
-    // Handle booking action for the center
-  };
 
   
 const styles = StyleSheet.create({
