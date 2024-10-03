@@ -15,6 +15,7 @@ const Test = ({ navigation }) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      if(user){
       const userService = UserService(user.token);
       try {
         const users = await userService.getUsers();
@@ -22,7 +23,7 @@ const Test = ({ navigation }) => {
         setUserData(users);
       } catch (error) {
         console.error(error);
-      }
+      }}
     }; 
     fetchUsers();
   }, [user.token]);

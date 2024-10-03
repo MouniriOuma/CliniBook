@@ -47,7 +47,7 @@ const SpecialitiesCards = () => {
         )}
       />
         
-      <TouchableOpacity onPress={handleShowMore} style={{ alignSelf: 'flex-end' }}>
+      <TouchableOpacity onPress={handleShowMore} style={{ alignSelf: 'flex-end', marginBottom: 20 }}>
         <Text style={styles.text}>Show More</Text>
       </TouchableOpacity>
       

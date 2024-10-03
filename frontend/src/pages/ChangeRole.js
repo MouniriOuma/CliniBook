@@ -7,32 +7,34 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from "../services/UserService";
 
 
-const ChangeRole = ({ navigation }) => {
+const ChangeRole = () => {
 
   
-  // const { user } = useAuthContext();
   // const [role, setRole] = useState(null);
-
+  
   // const [fontsLoaded] = useFonts({
-  //   Poppins_200ExtraLight,
-  //   Muli_400Regular,
-  // });
-  
-  
-  // useEffect(() => {
-  //   const fetchRole = async () => {
-  //     const centerService = UserService(user.token);
-  //     try {
-  //       //rename the function based on what i did in userService
-  //       const role = await centerService.getRole();
-  //       console.log(role);
-  //       setRole(role);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }; 
-  //   fetchRole();
-  // }, [user.token]);
+    //   Poppins_200ExtraLight,
+    //   Muli_400Regular,
+    // });
+    
+    
+  const { user } = useAuthContext();
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (user){
+      const userService = UserService(user.token);
+      try {
+        const userData = await userService.getUserByEmail(user.email);
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user infos :', error);
+      }}
+    }; 
+    fetchUser();
+  }, [user]);
+
 
   // if (!fontsLoaded || role === null) {
   //   return <Text>Loading...</Text>;

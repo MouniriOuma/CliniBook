@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from "../services/UserService";
 
 
-const CentersAdmin = ({ navigation }) => {
+const CentersAdmin = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
       <Text>centers list with add button</Text>

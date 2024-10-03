@@ -22,13 +22,14 @@ const CentersFiltered  = ({ filter }) => {
 
     useEffect(() => {
         const fetchCenters = async () => {
+          if(user){
           const centerService = CenterService(user.token);
           try {
             const centers = await centerService.getCenters();
             setCenters(centers);
           } catch (error) {
             console.error(error);
-          }
+          }}
         }; 
         fetchCenters();
       }, [user.token]);
@@ -44,8 +45,12 @@ const CentersFiltered  = ({ filter }) => {
   return (
     <View style={styles.containerCenter}>
       <Text style={styles.header}>Our centers</Text>
-      {centers.map((center, index) => {
-        if (center.specializations.includes(filter) || filter === center.city) {
+      {centers && (
+        <>
+        {centers.map((center, index) => {
+        if (center.specializations.some(spec => spec.toLowerCase() === filter?.toLowerCase()) ||
+        filter?.toLowerCase() === center.city?.toLowerCase()) {
+        // if (center.specializations.includes(filter) || filter === center.city) {
           return (
                 
             <TouchableOpacity onPress={() => navigation.navigate('CenterInfo', {center})}>
@@ -65,6 +70,11 @@ const CentersFiltered  = ({ filter }) => {
           return null; 
         }
       })}
+        </>
+      )
+
+      }
+      
     </View>
   );
 }

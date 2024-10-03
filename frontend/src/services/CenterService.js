@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "https://bee4-105-66-134-152.ngrok-free.app/api/center";
+const USER_API_BASE_URL = "https://37db-105-66-7-134.ngrok-free.app/api/center";
 
 
 const CenterService = (token) => {

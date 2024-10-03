@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Button } from "react-native";
+import { View, Text, FlatList, StyleSheet, Button, ScrollView, RefreshControl } from "react-native";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFonts } from "expo-font";
 import { Poppins_200ExtraLight } from '@expo-google-fonts/poppins';
@@ -15,12 +15,24 @@ const MyAppointments = () => {
   
   const { user } = useAuthContext();
   const [appointments, setAppointments] = useState(null);
-  const [myAppointments, setMyAppointments] = useState(null);
+  const [myAppointments, setMyAppointments] = useState([]);
   const [userId, setUserId] = useState('')
   const [time, setTime] = useState('');
   const [centerName, setCenterName] = useState('');
   const [dateOfAppointment, setDateOfAppointment] = useState('');
   const [state, setState] = useState('')
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchData().then(() => {
+      setRefreshing(false);
+  }).catch(error => {
+      console.error('Error refreshing data:', error);
+      setRefreshing(false);
+  });
+  }, []);
 
   const [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -29,49 +41,60 @@ const MyAppointments = () => {
   
 
   useEffect(() => {
-    const fetchData = async () => {
+    if(user){
+      fetchData();
+    }
+  }, [user, onRefresh]);
+  
+  
+  const fetchData = async () => {
+      if(user){
       try {
         const appointmentService = AppointmentService(user.token);
         const userService = UserService(user.token);
         const timeSlotService = TimeSlotService(user.token);
         const centerService = CenterService(user.token);
-  
-        // Fetch appointments
+        
+        // Fetch user data
+        const userData = await userService.getUserByEmail(user.email);
+        
+        console.log(userData._id)
+        setUserId(userData._id);
+        console.log(userId)
+
+        // Fetch appointments (temporary solution until optimizing this function)
         const appointments = await appointmentService.getAppointments();
         setAppointments(appointments);
         console.log(appointments)
+
   
-        // Fetch user data
-        const userData = await userService.getUserByEmail(user.email);
-        setUserId(userData._id);
-  
-        // Prepare array for storing appointment details
-        const myAppointments = [];
-  
+        
+        // // Prepare array for storing appointment details
+        // const myAppointments = [];
+        console.log(user._id)
+        if(user._id) {
         // Fetch details for each appointment
         for (const appointment of appointments) {
-          if (userId === appointment.user) {
+          // console.log(appointment)
             const timeSlot = await timeSlotService.getTimeSlot(appointment.timeSlot);
             const time = timeSlot.time;
             const date = timeSlot.date;
             const center = await centerService.getCenter(timeSlot.center);
             const centerName = center.name;
-            const validated = appointment.validated
+            const validated = appointment.validated;
+            if (userId === appointment.user) {
+              console.log('selected :', appointment)
             myAppointments.push({ time, date, centerName, validated });
           }
-        }
+        }}
         
         console.log(myAppointments)
         // Update state with appointment details
         setMyAppointments(myAppointments);
       } catch (error) {
         console.error(error);
-      }
+      }}
     };
-  
-    fetchData();
-  }, [user.token]);
-  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -82,13 +105,21 @@ const MyAppointments = () => {
   };
 
 
-  if (!fontsLoaded || appointments === null) {
+  if (!fontsLoaded && appointments === null && myAppointments == []) {
     return <Text>Loading...</Text>;
   }
   return (
     <View style={styles.containerappointment}>
-      <Text style={styles.header}>My appointments</Text>
-      {myAppointments.map((appointment, index) => {
+      <ScrollView  contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+          <Text style={styles.header}>My appointments</Text>
+      
+        <View style={{ marginBottom: 80 }}>
+          {myAppointments && (
+        <>
+        {myAppointments.map((appointment, index) => {
           return (                
               <View key={index} style={styles.appointmentCard}>
                 <Text style={styles.appointmentName}>{appointment.centerName}</Text>
@@ -99,6 +130,16 @@ const MyAppointments = () => {
               </View>
           );
       })}
+        </>
+      )
+
+      }
+
+        </View>
+        
+      </ScrollView>
+      
+      
     </View>
     
   );
@@ -129,15 +170,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#184557',
   },
-  carouselContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   appointmentCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     padding: 20,
-    //marginBottom: 20,
+    // marginBottom: 20,
     margin: 10,
     width: '95%',
   },
@@ -145,19 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  bookButton: {
-    backgroundColor: '#184557',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'flex-end',
-  },
-  bookButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
   },
 });
 

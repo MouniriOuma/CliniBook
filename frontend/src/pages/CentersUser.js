@@ -20,13 +20,14 @@ const CentersUser = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      if (user){
       const userService = UserService(user.token);
       try {
         const userData = await userService.getUserByEmail(user.email);
         setUserData(userData);
       } catch (error) {
         console.error('Error fetching user infos :', error);
-      }
+      }}
     }; 
     fetchUser();
   }, [user]);
@@ -58,7 +59,15 @@ const CentersUser = () => {
 
         <View>
           {/* <CentersView /> */}
-          {/* <CentersFiltered filter={userData.city} /> */}
+          {user && userData && (
+            <>
+            <CentersFiltered filter={userData.city} />
+            </>
+          )
+
+          }
+          </View>
+          <View>
           <SpecialitiesCards />
         </View>
       </ScrollView>

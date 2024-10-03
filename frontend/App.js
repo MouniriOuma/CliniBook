@@ -11,8 +11,6 @@ import axios from 'axios';
 import AuthStack from './src/navigator/AuthStack';
 
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
   
 
@@ -28,47 +26,3 @@ export default function App() {
     </SafeAreaView>
   );
 }
-
-/* 
-
-const App = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false); // Replace with your logic for checking login state
-  const [userRole, setUserRole] = useState(null); // Replace with your logic for determining user role
-  const [isFirstTimeLogin, setIsFirstTimeLogin] = useState(true);
-
-  return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        {isSignedIn ? (
-          // Check for first-time login first
-          isFirstTimeLogin ? (
-            <OnboardingStack />
-          ) : (
-            // Then check for user role
-            userRole === 'user' ? (
-              <UserTab />
-            ) : userRole === 'admin' ? (
-              <AdminTab />
-            ) : (
-              // Handle unexpected user role values (optional)
-              <Text>Unexpected user role</Text>
-            )
-          )
-        ) : (
-          <AuthStack /> // Login/Signup screens
-        )}
-        <Stack.Screen
-          name="profile"
-          component={profile}
-          options={{
-            headerShown: false, // Optional: hide header for profile screen
-            //tabBarVisible: false, // Prevent profile from appearing in tab bar
-          }}
-        />
-      </NavigationContainer>
-    </AuthContextProvider>
-  );
-};
-
-export default App;
- */

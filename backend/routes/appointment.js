@@ -5,7 +5,8 @@ const {
     getAppointment,
     createAppointment,
     deleteAppointment,
-    updateAppointment
+    updateAppointment,
+    getUserAppointments
 } = require('../controllers/appointmentController')
 
 const requireAuth = require('../middleware/requireAuth')
@@ -20,6 +21,9 @@ router.get('/', getAppointments)
 
 // GET a single Appointment
 router.get('/:id', getAppointment)
+
+// GET a single Appointment
+router.get('/userAppointments/:id', getUserAppointments)
 
 // POST a new Appointment
 router.post('/', createAppointment)

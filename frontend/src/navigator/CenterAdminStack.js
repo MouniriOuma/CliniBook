@@ -1,11 +1,11 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 //pages
 import CentersAdmin from '../pages/CentersAdmin';
 import AddCenter from '../pages/AddCenter';
 
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const CenterAdminStack = () => {
     return (

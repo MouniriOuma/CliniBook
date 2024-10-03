@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-// import Carousel from 'react-native-reanimated-carousel';
 import Carousel from 'react-native-snap-carousel';
 
 const MyCarousel = () => {

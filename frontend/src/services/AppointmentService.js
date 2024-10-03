@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "https://bee4-105-66-134-152.ngrok-free.app/api/appointment";
+const USER_API_BASE_URL = "https://37db-105-66-7-134.ngrok-free.app/api/appointment";
 
 const AppointmentService = (token) => {
     const getAppointments = async () => {
@@ -27,6 +27,7 @@ const getAppointment = async (id) => {
 
 const createAppointment = async (appointmentData) => {
     try {
+        // console.log(appointmentData)
     const response = await axios.post(`${USER_API_BASE_URL}/`, appointmentData, {
         headers: { Authorization: `Bearer ${token}` }
     });

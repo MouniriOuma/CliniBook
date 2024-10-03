@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   usercity: {
-    marginLeft: 10,
+    // marginLeft: 10,
     fontWeight: 'bold',
     fontSize: 15,
   },

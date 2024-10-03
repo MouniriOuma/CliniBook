@@ -11,6 +11,7 @@ const getAppointments = async (req, res) => {
   }
 };
 
+
 // Get a single appointment
 const getAppointment = async (req, res) => {
   const { id } = req.params;
@@ -34,7 +35,7 @@ const getAppointment = async (req, res) => {
 const getUserAppointments = async (req, res) => {
   try {
     const userId = req.user._id;
-
+    // const user = await User.findOne({ email });
     const userAppointments = await Appointment.find({ user: userId });
 
     // Return the user's appointments to the client

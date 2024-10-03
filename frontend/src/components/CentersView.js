@@ -22,6 +22,7 @@ const CentersView = () => {
   
   useEffect(() => {
     const fetchCenters = async () => {
+      if(user){
       const centerService = CenterService(user.token);
       try {
         const centers = await centerService.getCenters();
@@ -29,7 +30,7 @@ const CentersView = () => {
         setCenters(centers);
       } catch (error) {
         console.error(error);
-      }
+      }}
     }; 
     fetchCenters();
   }, [user.token]);

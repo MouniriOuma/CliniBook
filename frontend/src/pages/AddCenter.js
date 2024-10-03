@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from "../services/UserService";
 
 
-const AddCenter = ({ navigation }) => {
+const AddCenter = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
       <Text>add center </Text>

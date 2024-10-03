@@ -7,8 +7,6 @@ import { useFonts } from "expo-font";
 import { Poppins_200ExtraLight } from '@expo-google-fonts/poppins';
 import { Muli_400Regular } from '@expo-google-fonts/muli';
 import { useRoute } from '@react-navigation/native';
-import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
-import DatePicker from 'react-native-modern-datepicker';
 import {
   IAppointment,
   IAvailableDates,
@@ -21,6 +19,8 @@ import AppointmentService from '../services/AppointmentService'
 const Booking = () => {
   const navigation = useNavigation();
   const { user } = useAuthContext();
+  const [userToken, setUserToken] = useState(null);
+
 
 
   
@@ -38,6 +38,7 @@ const Booking = () => {
     const fetchData = async () => {
       if (user) {
         const userService = UserService(user.token);
+        setUserToken(user.token)
         try {
           const userData = await userService.getUserByEmail(user.email);
           setReservedBy(userData._id);
@@ -49,7 +50,7 @@ const Booking = () => {
     
     fetchData();
   }, [user]);
-  const userToken = user.token;
+ 
   //date
   const [date, setDate] = useState('');
   // Function to extract only the date format : DD-MM-YYYY
@@ -66,14 +67,17 @@ const Booking = () => {
 
   //sending data
   const handleBooking = async() => {
-    try {
 
-      //bring data 
-      setDate(formatDate(dateOfAppointment?.appointmentDate));
-      setTime(dateOfAppointment?.appointmentTime);
+    //bring data 
+    setDate(formatDate(dateOfAppointment?.appointmentDate));
+    setTime(dateOfAppointment?.appointmentTime);
+
+    if (center && date && time && reservedBy && user){
+    try {
 
       //set the timeslot object and create one
       const timeSlotDetails = {center, date, time, reservedBy};
+      
       const timeSlotService = TimeSlotService(userToken);
       const response = await timeSlotService.createTimeSlot(timeSlotDetails);
 
@@ -87,13 +91,14 @@ const Booking = () => {
       navigation.navigate('Appointments')
       } catch (error) {
       console.error('Error creation :', error);}
-  }
+  }}
   
   return (
     <View style={styles.container}>
       
       <Text style={styles.heading}>Booking</Text>
-
+      {user && (
+        <>
       <View style={styles.DatePicker}>
       <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <TimeSlotPicker
@@ -107,7 +112,8 @@ const Booking = () => {
       <TouchableOpacity style={styles.button} onPress={handleBooking}>
         <Text style={styles.buttonText}>book</Text>
       </TouchableOpacity>
-
+    </>
+    )}
     </View>
   );
 };
