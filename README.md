@@ -98,18 +98,31 @@ Error handling is implemented throughout the app using `try...catch` to prevent 
 ## Project Architecture
 
 /project-root
+
 │
+
 ├── /backend        # Node.js/Express server
+
 │   ├── /controllers    # Handles the logic for API requests
+
 │   ├── /models         # Database models (Centers, Timeslots, Appointments)
+
 │   ├── /middlewares    # Authentication, Role Middleware
+
 │   ├── /routes         # API Endpoints (Centers, Timeslots, Appointments)
+
 │   └── /services       # Business logic for interacting with data
+
 │
+
 ├── /frontend       # React Native app
+
 │   ├── /components     # Reusable UI components
+
 │   ├── /screens        # App screens (Login, Dashboard, Admin, etc.)
+
 │   ├── /services       # Axios-based services for API communication
+
 │   └── /navigation     # Navigation setup (Tab Navigator, Stack Navigator)
 
 
