@@ -136,3 +136,9 @@ Error handling is implemented throughout the app using `try...catch` to prevent 
 - **UI Enhancements:** Improve the design with additional elements and animations.
 - **Unit Testing:** Add tests to cover both frontend and backend functionalities.
 - **Additional Features:** Notifications and appointment reminders.
+
+## Feedback and Contributions
+Your feedback is invaluable to me! If you have any suggestions, feature requests, or encounter any issues while using CliniBook, please feel free to reach out to me.
+
+## Contact Information
+For more information or inquiries, please contact OUMAIMA MOUNIRI at mouniri.ouma@gmail.com
